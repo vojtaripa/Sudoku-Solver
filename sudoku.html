@@ -1,0 +1,2694 @@
+
+<!--TO DO
+-Mess/fix bold answers and make red?
+-Print result how it was solved and how many loops it took and which numbers it found in what order
+-checkbox for functions used and want to use and dont want to use
+-change graphics, make it look nice
+-imbed more HTML5 stuff
+-
+
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+  <head>
+	<link rel="stylesheet" type="text/css" href="sudokuStyle.css"> <!--MY STYLE SHEET-->
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+
+    <title>Sudoku Solver</title>
+    
+    
+    <!-- Link to External JavaScript -->
+    <script language="javascript" src="addfunction.js"></script>
+  
+  
+  </head>
+  
+  
+  
+  
+  
+  
+  
+  <body>
+<form name="form1" center align=center>
+
+<h1>SUDOKU SOLVER</h1>
+<h2><i>Created by: Vojta Ripa</i></h2>
+<br>
+<b> Enter your name: </b> <input type="text" name="userVar" value="USER" id="userVar">
+
+<input type="button" onClick="submitName()" value="Submit">
+<br><br>
+
+<!--Difficulty BUTTONS-->
+Difficulty: 
+<input type="radio" name="difficulty" value="given" id="given">Given
+<input type="radio" name="difficulty" value="easy" id="easy">Easy
+<input type="radio" name="difficulty" value="medium" id="medium">Medium
+<input type="radio" name="difficulty" value="hard" id="hard">Hard
+<input type="radio" name="difficulty" value="evil" id="evil">Evil
+<input type="radio" name="difficulty" value="custom" id="custom">Custom
+<input type="button" value="Change Difficulty"  onClick="changeDifficulty()"><br>
+Add More at: <a href = "http://www.websudoku.com/">Sudoku Puzzles</a> <br>
+Or: <a href = "http://www.sudoku.com/en">More Sudoku Puzzles </a> <br>
+
+<!--<text><b>0	&nbsp &nbsp &nbsp &nbsp 1 &nbsp &nbsp &nbsp &nbsp 2 &nbsp &nbsp &nbsp	&nbsp &nbsp 3 &nbsp &nbsp &nbsp &nbsp 4 &nbsp &nbsp	&nbsp &nbsp 5 &nbsp &nbsp &nbsp	&nbsp &nbsp 6 &nbsp &nbsp &nbsp &nbsp 7 &nbsp &nbsp	&nbsp &nbsp 8</b></text>-->
+<!--BEGIN TABLE-->
+<table cellspacing="0" cellpadding="0" class="t" align=center>
+<tbody>
+<!--Title rows-->
+<tr>
+<td class="row0" > 
+0
+<!--<input class="a1" size="1" value="0">-->
+</td>
+<td class="row0" >
+1
+</td>
+<td class="row0" >
+2
+</td>
+<td class="row0" >
+3
+</td>
+<td class="row0" >
+4
+</td>
+<td class="row0" >
+5
+</td>
+<td class="row0" >
+6
+</td>
+<td class="row0" >
+7
+</td>
+<td class="row0" >
+8
+</td>
+</tr>
+<!--ROW 1-->
+<tr>
+<td class="g0" id="c00" >
+<b>0</b> <input class="s0" size="1"  autocomplete="off" name="s2qhnx11" maxlength="1" value="9" id="f00">
+</td>
+<td class="f0" id="c10">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx21" maxlength="1" value="" onblur="j8(this)" id="f10">
+</td>
+<td class="f0" id="c20">
+<input class="side" size="2" autocomplete="off" name="s2qhnx31" maxlength="1" value="" onblur="j8(this)" id="f20">
+</td>
+<td class="g0" id="c30">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx41" maxlength="1" value="" onblur="j8(this)" id="f30">
+</td>
+<td class="f0" id="c40">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx51" maxlength="1" value="" onblur="j8(this)" id="f40">
+</td>
+<td class="f0" id="c50">
+<input class="side" size="2" autocomplete="off" name="s2qhnx61" maxlength="1" value="1" id="f50">
+</td>
+<td class="g0" id="c60">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx71" maxlength="1" value="" onblur="j8(this)" id="f60">
+</td>
+<td class="f0" id="c70">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx81" maxlength="1" value="" onblur="j8(this)" id="f70">
+</td>
+<td class="f0" id="c80">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx91" maxlength="1" value="" onblur="j8(this)" id="f80">
+</td>
+</tr>
+<!--ROW 2-->
+<tr class="border1">
+ <td class="e0" id="c01">
+<b>1</b> <input class="d0" size="2" autocomplete="off" name="s2qhnx12" maxlength="1" onblur="j8(this)" id="f01">
+</td><td class="c0" id="c11">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx22" maxlength="1" value="7" id="f11">
+</td><td class="c0" id="c21">
+<input class="side" size="2" autocomplete="off" name="s2qhnx32" maxlength="1" onblur="j8(this)" id="f21">
+</td><td class="e0" id="c31">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx42" maxlength="1" onblur="j8(this)" id="f31">
+</td><td class="c0" id="c41">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx52" maxlength="1" value="3" id="f41">
+</td>
+<td class="c0" id="c51">
+<input class="side" size="2" autocomplete="off" name="s2qhnx62" maxlength="1" onblur="j8(this)" id="f51">
+</td><td class="e0" id="c61">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx72" maxlength="1" value="1" id="f61">
+</td><td class="c0" id="c71">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx82" maxlength="1" onblur="j8(this)" id="f71">
+</td><td class="c0" id="c81">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx92" maxlength="1" onblur="j8(this)" id="f81">
+</td>
+</tr>
+<!--ROW 3-->
+<tr>
+<td class="e0" id="c02">
+<b>2</b> <input class="a0" size="2" autocomplete="off" name="s2qhnx13" maxlength="1" value="4" id="f02">
+</td><td class="c0" id="c12">
+<input class="a0" size="2" autocomplete="off" name="s2qhnx23" maxlength="1" onblur="j8(this)" id="f12">
+</td><td class="c0" id="c22">
+<input class="side z0" size="2" autocomplete="off" name="s2qhnx33" maxlength="1" value="6" id="f22">
+</td><td class="e0" id="c32">
+<input class="a0" size="2" autocomplete="off" name="s2qhnx43" maxlength="1" value="8" id="f32">
+</td><td class="c0" id="c42">
+<input class="a0" size="2" autocomplete="off" name="s2qhnx53" maxlength="1" value="5" id="f42">
+</td><td class="c0" id="c52">
+<input class="side z0" size="2" autocomplete="off" name="s2qhnx63" maxlength="1" value="2" id="f52">
+</td><td class="e0" id="c62">
+<input class="a0" size="2" autocomplete="off" name="s2qhnx73" maxlength="1" onblur="j8(this)" id="f62">
+</td><td class="c0" id="c72">
+<input class="a0" size="2" autocomplete="off" name="s2qhnx83" maxlength="1" value="9" id="f72">
+</td><td class="c0" id="c82">
+<input class="a0" size="2" autocomplete="off" name="s2qhnx93" maxlength="1" onblur="j8(this)" id="f82">
+</td>
+</tr>
+<!--ROW 4-->
+<tr>
+<td class="g0" id="c03">
+<b>3</b> <input class="s0" size="2" autocomplete="off" name="s2qhnx14" maxlength="1" value="3" id="f03">
+</td><td class="f0" id="c13">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx24" maxlength="1" value="8" id="f13">
+</td><td class="f0" id="c23">
+<input class="side" size="2" autocomplete="off" name="s2qhnx34" maxlength="1" onblur="j8(this)" id="f23">
+</td><td class="g0" id="c33">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx44" maxlength="1" onblur="j8(this)" id="f33">
+</td><td class="f0" id="c43">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx54" maxlength="1" value="6" id="f43">
+</td><td class="f0" id="c53">
+<input class="side" size="2" autocomplete="off" name="s2qhnx64" maxlength="1" onblur="j8(this)" id="f53">
+</td><td class="g0" id="c63">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx74" maxlength="1" onblur="j8(this)" id="f63">
+</td><td class="f0" id="c73">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx84" maxlength="1" onblur="j8(this)" id="f73">
+</td><td class="f0" id="c83">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx94" maxlength="1" value="9" id="f83">
+</td>
+</tr>
+<!--ROW 5-->
+<tr class="border1">
+<td class="e0" id="c04">
+<b>4</b> <input class="d0" size="2" autocomplete="off" name="s2qhnx15" maxlength="1" onblur="j8(this)" id="f04">
+</td><td class="c0" id="c14">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx25" maxlength="1" value="5" id="f14">
+</td><td class="c0" id="c24">
+<input class="side" size="2" autocomplete="off" name="s2qhnx35" maxlength="1" value="1" id="f24">
+</td><td class="e0" id="c34">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx45" maxlength="1" value="9" id="f34">
+</td><td class="c0" id="c44">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx55" maxlength="1" onblur="j8(this)" id="f44">
+</td><td class="c0" id="c54">
+<input class="side" size="2" autocomplete="off" name="s2qhnx65" maxlength="1" value="3" id="f54">
+</td><td class="e0" id="c64">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx75" maxlength="1" value="2" id="f64">
+</td><td class="c0" id="c74">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx85" maxlength="1" value="8" id="f74">
+</td><td class="c0" id="c84">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx95" maxlength="1" onblur="j8(this)" id="f84">
+</td>
+</tr>
+<!--ROW 6-->
+<tr><td class="e0" id="c05">
+<b>5</b> <input class="a0" size="2" autocomplete="off" name="s2qhnx16" maxlength="1" value="7" id="f05">
+</td><td class="c0" id="c15">
+<input class="a0" size="2" autocomplete="off" name="s2qhnx26" maxlength="1" onblur="j8(this)" id="f15">
+</td><td class="c0" id="c25">
+<input class="side z0" size="2" autocomplete="off" name="s2qhnx36" maxlength="1" onblur="j8(this)" id="f25">
+</td><td class="e0" id="c35">
+<input class="a0" size="2" autocomplete="off" name="s2qhnx46" maxlength="1" onblur="j8(this)" id="f35">
+</td><td class="c0" id="c45">
+<input class="a0" size="2" autocomplete="off" name="s2qhnx56" maxlength="1" value="1" id="f45">
+</td><td class="c0" id="c55">
+<input class="side z0" size="2" autocomplete="off" name="s2qhnx66" maxlength="1" onblur="j8(this)" id="f55">
+</td><td class="e0" id="c65">
+<input class="a0" size="2" autocomplete="off" name="s2qhnx76" maxlength="1" onblur="j8(this)" id="f65">
+</td><td class="c0" id="c75">
+<input class="a0" size="2" autocomplete="off" name="s2qhnx86" maxlength="1" value="6" id="f75">
+</td><td class="c0" id="c85">
+<input class="a0" size="2" autocomplete="off" name="s2qhnx96" maxlength="1" value="3" id="f85">
+</td>
+</tr>
+<!--ROW 7-->
+<tr>
+<td class="g0" id="c06">
+<b>6</b> <input class="d0" size="2" autocomplete="off" name="s2qhnx17" maxlength="1" onblur="j8(this)" id="f06">
+</td><td class="f0" id="c16">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx27" maxlength="1" value="2" id="f16">
+</td><td class="f0" id="c26">
+<input class="side" size="2" autocomplete="off" name="s2qhnx37" maxlength="1" onblur="j8(this)" id="f26">
+</td><td class="g0" id="c36">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx47" maxlength="1" value="1" id="f36">
+</td><td class="f0" id="c46">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx57" maxlength="1" value="9" id="f46">
+</td><td class="f0" id="c56">
+<input class="side" size="2" autocomplete="off" name="s2qhnx67" maxlength="1" value="7" id="f56">
+</td><td class="g0" id="c66">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx77" maxlength="1" value="8" id="f66">
+</td><td class="f0" id="c76">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx87" maxlength="1" onblur="j8(this)" id="f76">
+</td><td class="f0" id="c86">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx97" maxlength="1" value="6" id="f86">
+</td>
+</tr>
+<!--ROW 8-->
+<tr>
+<td class="e0" id="c07">
+<b>7</b> <input class="d0" size="2" autocomplete="off" name="s2qhnx18" maxlength="1" onblur="j8(this)" id="f07">
+</td><td class="c0" id="c17">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx28" maxlength="1" onblur="j8(this)" id="f17">
+</td><td class="c0" id="c27">
+<input class="side" size="2" autocomplete="off" name="s2qhnx38" maxlength="1" value="7" id="f27">
+</td><td class="e0" id="c37">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx48" maxlength="1" onblur="j8(this)" id="f37">
+</td><td class="c0" id="c47">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx58" maxlength="1" value="8" id="f47">
+</td><td class="c0" id="c57">
+<input class="side" size="2" autocomplete="off" name="s2qhnx68" maxlength="1" onblur="j8(this)" id="f57">
+</td><td class="e0" id="c67">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx78" maxlength="1" onblur="j8(this)" id="f67">
+</td><td class="c0" id="c77">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx88" maxlength="1" value="2" id="f77">
+</td><td class="c0" id="c87">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx98" maxlength="1" onblur="j8(this)" id="f87">
+</td>
+</tr>
+<!--ROW 9-->
+<tr><td class="i0" id="c08">
+<b>8</b> <input class="d0" size="2" autocomplete="off" name="s2qhnx19" maxlength="1" onblur="j8(this)" id="f08">
+</td><td class="h0" id="c18">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx29" maxlength="1" onblur="j8(this)" id="f18">
+</td><td class="h0" id="c28">
+<input class="side" size="2" autocomplete="off" name="s2qhnx39" maxlength="1" onblur="j8(this)" id="f28">
+</td><td class="i0" id="c38">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx49" maxlength="1" value="4" id="f38">
+</td><td class="h0" id="c48">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx59" maxlength="1" onblur="j8(this)" id="f48">
+</td><td class="h0" id="c58">
+<input class="side" size="2" autocomplete="off" name="s2qhnx69" maxlength="1" onblur="j8(this)" id="f58">
+</td><td class="i0" id="c68">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx79" maxlength="1" onblur="j8(this)" id="f68">
+</td><td class="h0" id="c78">
+<input class="d0" size="2" autocomplete="off" name="s2qhnx89" maxlength="1" onblur="j8(this)" id="f78">
+</td><td class="h0" id="c88">
+<input class="s0" size="2" autocomplete="off" name="s2qhnx99" maxlength="1" value="1" id="f88">
+</td>
+</tr>
+</tbody>
+</table>
+<!--END TABLE-->
+<text><font color="red">Numbers in RED represent new numbers</font></text><br>
+<text><font color="blue">Numbers in BLUE represent known numbers</font></text><br>
+<text>Numbers in BLACK represent unknown numbers</text><br>
+
+There are still <input type="text" name="unsolved" size=1 value="0"> unsolved boxes. 
+<br>
+
+<input type="button" value="Solve"  onClick="solve()" ><!--"printToSudoku()"> <!--onClick=onClick=readTable()-->
+<input type="button" value="Clear" onClick="clearAll()">
+<input type="button" value="Print All" onClick="printAll()">
+<input type="button" value="Step-by-Step" onClick="stepbystep()">
+<input type="button" value="Save Custom" onClick="saveCustom()">
+<br>
+<input type="button" value="NakedPairs" onClick="advanced()">
+<input type="button" value="NakedTrips" onClick="nTrips()">
+<input type="button" value="PointingTrips" onClick="pTrips()">
+
+<br>
+<br>
+Prints whole array (possibilities of each index/box): <br>
+
+<br>
+
+<textarea id="myTextarea" name="something" style="margin 2px; width: 400px; height: 500px;">This is where all results will appear</textarea>
+</form>
+
+
+
+</body>
+
+
+
+
+
+
+<!--START JAVASCRIPT-->
+	<br>
+  	<body>
+  	
+  	<script language="javascript" type="text/javascript">
+  		<!-- Hide JavaScript Code
+  		
+  		// JavaScript is case sensitive - Variables & Functions must use the same capitalization
+  		// Variables must start with a Letter, _, or $ then numbers
+  		// 4 Datatypes- Numbers, Strings, functioneans, Objects
+  		
+		
+		//allows users to submit name
+		function submitName()
+		{
+			var name=document.form1.userVar.value;
+			//document.write(name);
+			document.form1.userVar.value="Welcome " + name;
+		}
+		
+		//Did not make this function, but its a simple function that changes look/style of text
+		 function changeFont(txt, change, color) 
+		 {
+				if (change == 'b') {
+					if (document.getElementById(txt).style.fontWeight == 'bold')
+						{
+						document.getElementById(txt).style.fontWeight = 'bold';
+						//document.getElementById(txt).fontcolor("red"); //= 'red';//color:red;
+						document.getElementById(txt).style.color = color;
+						}
+					else
+						{
+						document.getElementById(txt).style.color = 'red';
+						document.getElementById(txt).style.fontWeight = 'bold';
+						//document.getElementById(txt).style.fontStyle = 'italic';
+						
+						//document.getElementById(txt).style.font-family= 'arial';//color:red;
+						//document.getElementById(txt).fontcolor='red'; //= 'red';//color:red;
+						}
+				}
+				else if (change == 'i') {
+					if (document.getElementById(txt).style.fontStyle == 'italic')
+						document.getElementById(txt).style.fontStyle = 'normal';
+					else
+						document.getElementById(txt).style.fontStyle = 'italic';
+				}
+				else {
+					if (document.getElementById(txt).style.textDecoration == 'underline')
+						document.getElementById(txt).style.textDecoration = 'none';
+					else
+						document.getElementById(txt).style.textDecoration = 'underline';
+						}
+					
+        }
+		
+		function changeFontBack(txt2, color2) 
+		{
+				document.getElementById(txt2).style.fontWeight = 'normal';
+				document.getElementById(txt2).style.color = "black";// color;
+        }
+		
+		//makes  answers bold and red, switching colors to blue if they were already known
+		function makeBold()
+		{
+			var mystring=""; 
+			//f88
+			
+			 for (var i = 0; i < 9; ++i) //ROW 
+			  { 
+				  for (var j = 0; j < 9; ++j) //Column 
+				  { 
+					  if(sudoku[i][j][0]!=0) 
+					  {
+					  mystring="f"+j+i;
+					  changeFont(mystring, 'b', 'blue');
+					  //changeFont('userVar', 'b');
+					  }
+					  else{}
+				  }     
+			  } 
+		}
+		
+		//changes text back to black and not bold
+		function makeNotBold()
+		{
+			var mystring2=""; 
+			
+			 for (var i = 0; i < 9; ++i) //ROW 
+			  { 
+				  for (var j = 0; j < 9; ++j) //Column 
+				  { 				  
+					  mystring2="f"+j+i;
+					  changeFontBack(mystring2, 'black'); //back
+				  }     
+			  } 
+		}
+		
+		
+//Creating arrays********************************************************************************
+		//function createArray()
+		//{
+			//array level 1
+			var sudoku = new Array(10);
+			//array level 2
+				for(i=0;i<10;i++)
+				{
+					sudoku[i]= new Array(10);
+					//array level 3
+					for(j=0;j<10;j++)
+					{
+						sudoku[i][j]= new Array(10);
+					}
+				}
+		//}
+		//createArray();
+		
+		
+		//function createOriginalArray()
+		//{
+			//array level 1
+			var original = new Array(10);
+			//array level 2
+				for(i=0;i<10;i++)
+				{
+					original[i]= new Array(10);
+					//array level 3
+					for(j=0;j<10;j++)
+					{
+						original[i][j]= new Array(10);
+					}
+				}
+		//}
+		
+			var difference = new Array(10);
+			//array level 2
+				for(i=0;i<10;i++)
+				{
+					difference[i]= new Array(10);
+					//array level 3
+					for(j=0;j<10;j++)
+					{
+						difference[i][j]= new Array(10);
+					}
+				}
+//*************************************************************************************************
+//INITILIZING SUDOKUS******************************************************************************
+		function easy() //loads easy puzzle 
+		{ 
+		 //ROW 0 
+		  sudoku[0][1][0] = 1; 
+		  sudoku[0][3][0] = 9; 
+		  sudoku[0][6][0] = 4; 
+		  sudoku[0][7][0] = 3; 
+		 //ROW 1  
+		  sudoku[1][2][0] = 9; 
+		  sudoku[1][5][0] = 7; 
+		  sudoku[1][8][0] = 5; 
+		 //ROW 2  
+		  sudoku[2][1][0] = 7; 
+		  sudoku[2][3][0] = 5; 
+		  sudoku[2][5][0] = 4; 
+		 //ROW 3  
+		  sudoku[3][1][0] = 3; 
+		  sudoku[3][2][0] = 7; 
+		 //ROW 4  
+		  sudoku[4][0][0] = 1; 
+		  sudoku[4][1][0] = 5; 
+		  sudoku[4][4][0] = 8; 
+		  sudoku[4][7][0] = 2; 
+		  sudoku[4][8][0] = 9; 
+		 //ROW 5  
+		  sudoku[5][6][0] = 6; 
+		  sudoku[5][7][0] = 8; 
+		 //ROW 6  
+		  sudoku[6][3][0] = 3; 
+		  sudoku[6][5][0] = 5; 
+		  sudoku[6][7][0] = 4; 
+		 //ROW 7  
+		  sudoku[7][0][0] = 4; 
+		  sudoku[7][3][0] = 1; 
+		  sudoku[7][6][0] = 8; 
+		 //ROW 8  
+		  sudoku[8][1][0] = 9; 
+		  sudoku[8][2][0] = 5; 
+		  sudoku[8][5][0] = 8; 
+		  sudoku[8][7][0] = 7; 
+			
+		} 
+		  
+		function medium() //loads medium difficulty puzzle 
+		{ 
+		//ROW 0 
+		  sudoku[0][0][0] = 2; 
+		  sudoku[0][5][0] = 5; 
+		  sudoku[0][6][0] = 1; 
+		  sudoku[0][8][0] = 9; 
+		 //ROW 1  
+		  sudoku[1][2][0] = 4; 
+		  sudoku[1][5][0] = 7; 
+		  sudoku[1][7][0] = 5; 
+		 //ROW 2  
+		  sudoku[2][4][0] = 9; 
+		 //ROW 3  
+		  sudoku[3][1][0] = 2; 
+		  sudoku[3][2][0] = 7; 
+		  sudoku[3][3][0] = 8; 
+		  sudoku[3][6][0] = 9; 
+		  sudoku[3][7][0] = 6; 
+		 //ROW 4  
+		  sudoku[4][0][0] = 4; 
+		  sudoku[4][4][0] = 6; 
+		  sudoku[4][8][0] = 2; 
+		 //ROW 5  
+		  sudoku[5][1][0] = 6; 
+		  sudoku[5][2][0] = 9; 
+		  sudoku[5][5][0] = 2; 
+		  sudoku[5][6][0] = 5; 
+		  sudoku[5][7][0] = 4; 
+		 //ROW 6  
+		  sudoku[6][4][0] = 8; 
+		 //ROW 7  
+		  sudoku[7][1][0] = 7; 
+		  sudoku[7][3][0] = 4; 
+		  sudoku[7][6][0] = 6; 
+		 //ROW 8  
+		  sudoku[8][0][0] = 5; 
+		  sudoku[8][2][0] = 1; 
+		  sudoku[8][3][0] = 7; 
+		  sudoku[8][8][0] = 3; 
+		} 
+		  
+		function hard() //loads hard puzzle 
+		{ 
+		  //ROW 0 
+		  sudoku[0][0][0] = 1; 
+		  sudoku[0][3][0] = 9; 
+		  sudoku[0][5][0] = 7; 
+		  sudoku[0][7][0] = 2; 
+		 //ROW 1  
+		  sudoku[1][1][0] = 5; 
+		  sudoku[1][2][0] = 2; 
+		 //ROW 2  
+		  sudoku[2][4][0] = 6; 
+		  sudoku[2][5][0] = 3; 
+		  sudoku[2][6][0] = 4; 
+		 //ROW 3  
+		  sudoku[3][2][0] = 7; 
+		  sudoku[3][3][0] = 3; 
+		  sudoku[3][6][0] = 9; 
+		 //ROW 4  
+		  sudoku[4][0][0] = 6; 
+		  sudoku[4][3][0] = 1; 
+		  sudoku[4][5][0] = 5; 
+		  sudoku[4][8][0] = 4; 
+		 //ROW 5  
+		  sudoku[5][2][0] = 4; 
+		  sudoku[5][5][0] = 8; 
+		  sudoku[5][6][0] = 1; 
+		 //ROW 6  
+		  sudoku[6][2][0] = 1; 
+		  sudoku[6][3][0] = 7; 
+		  sudoku[6][4][0] = 4; 
+		 //ROW 7  
+		  sudoku[7][6][0] = 2; 
+		  sudoku[7][7][0] = 4; 
+		 //ROW 8  
+		  sudoku[8][1][0] = 9; 
+		  sudoku[8][3][0] = 5; 
+		  sudoku[8][5][0] = 2; 
+		  sudoku[8][8][0] = 6; 
+		} 
+		function evil() //loads very hard/ EVIL puzzle 
+		{ 
+			//ROW 0 
+		  sudoku[0][1][0] = 4; 
+		  sudoku[0][2][0] = 8; 
+		  sudoku[0][5][0] = 1; 
+		 //ROW 1  
+		  sudoku[1][3][0] = 3; 
+		  sudoku[1][4][0] = 6; 
+		  sudoku[1][8][0] = 4; 
+		 //ROW 2  
+		  sudoku[2][5][0] = 8; 
+		  sudoku[2][7][0] = 1; 
+		 //ROW 3  
+		  sudoku[3][2][0] = 1; 
+		  sudoku[3][4][0] = 4; 
+		  sudoku[3][6][0] = 6; 
+		 //ROW 4  
+		  sudoku[4][0][0] = 5; 
+		  sudoku[4][3][0] = 1; 
+		  sudoku[4][5][0] = 6; 
+		  sudoku[4][8][0] = 2; 
+		 //ROW 5  
+		  sudoku[5][2][0] = 4; 
+		  sudoku[5][4][0] = 8; 
+		  sudoku[5][6][0] = 9; 
+		 //ROW 6  
+		  sudoku[6][1][0] = 9; 
+		  sudoku[6][3][0] = 6; 
+		 //ROW 7  
+		  sudoku[7][0][0] = 7; 
+		  sudoku[7][4][0] = 3; 
+		  sudoku[7][5][0] = 2; 
+		 //ROW 8  
+		  sudoku[8][3][0] = 8; 
+		  sudoku[8][6][0] = 3; 
+		  sudoku[8][7][0] = 2; 
+		} 
+//************************************************************************************************
+		
+		//adds content from table varo the array sudoku
+		function addToArray()
+		{
+			var i=0;
+			var j=0;
+			var z=1;
+			//var str ='document.form1.s2qhnx11.value';
+			
+			if(document.form1.s2qhnx11.value != "" ) //("1" || "2" || "3" || "4" || "5" || "6" || "7" || "8" || "9")
+				sudoku[i][j][0]=document.form1.s2qhnx11.value; //==1 || 2 || 3 || 4 || 5 || 6 || 7 || 8 || 9
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			
+			if(document.form1.s2qhnx21.value != "")
+				sudoku[i][j][0]=document.form1.s2qhnx21.value; 
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx31.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx31.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx41.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx41.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx51.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx51.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx61.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx61.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx71.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx71.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx81.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx81.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx91.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx91.value;
+			else
+				sudoku[i][j][0]=0;
+			j=0;
+			i++;
+			
+			
+					if(document.form1.s2qhnx12.value != "" ) //("1" || "2" || "3" || "4" || "5" || "6" || "7" || "8" || "9")
+				sudoku[i][j][0]=document.form1.s2qhnx12.value; //==1 || 2 || 3 || 4 || 5 || 6 || 7 || 8 || 9
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			
+			if(document.form1.s2qhnx22.value != "")
+				sudoku[i][j][0]=document.form1.s2qhnx22.value; 
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx32.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx32.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx42.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx42.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx52.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx52.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx62.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx62.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx72.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx72.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx82.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx82.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx92.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx92.value;
+			else
+				sudoku[i][j][0]=0;
+			j=0;
+			i++;
+			
+						if(document.form1.s2qhnx13.value != "" ) //("1" || "2" || "3" || "4" || "5" || "6" || "7" || "8" || "9")
+				sudoku[i][j][0]=document.form1.s2qhnx13.value; //==1 || 2 || 3 || 4 || 5 || 6 || 7 || 8 || 9
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			
+			if(document.form1.s2qhnx23.value != "")
+				sudoku[i][j][0]=document.form1.s2qhnx23.value; 
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx33.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx33.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx43.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx43.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx53.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx53.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx63.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx63.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx73.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx73.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx83.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx83.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx93.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx93.value;
+			else
+				sudoku[i][j][0]=0;
+			j=0;
+			i++;
+			
+			
+			if(document.form1.s2qhnx14.value != "" ) //("1" || "2" || "3" || "4" || "5" || "6" || "7" || "8" || "9")
+				sudoku[i][j][0]=document.form1.s2qhnx14.value; //==1 || 2 || 3 || 4 || 5 || 6 || 7 || 8 || 9
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			
+			if(document.form1.s2qhnx24.value != "")
+				sudoku[i][j][0]=document.form1.s2qhnx24.value; 
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx34.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx34.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx44.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx44.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx54.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx54.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx64.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx64.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx74.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx74.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx84.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx84.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx94.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx94.value;
+			else
+				sudoku[i][j][0]=0;
+			j=0;
+			i++;
+			
+			
+					if(document.form1.s2qhnx15.value != "" ) //("1" || "2" || "3" || "4" || "5" || "6" || "7" || "8" || "9")
+				sudoku[i][j][0]=document.form1.s2qhnx15.value; //==1 || 2 || 3 || 4 || 5 || 6 || 7 || 8 || 9
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			
+			if(document.form1.s2qhnx25.value != "")
+				sudoku[i][j][0]=document.form1.s2qhnx25.value; 
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx35.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx35.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx45.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx45.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx55.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx55.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx65.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx65.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx75.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx75.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx85.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx85.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx95.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx95.value;
+			else
+				sudoku[i][j][0]=0;
+			j=0;
+			i++;
+			
+						if(document.form1.s2qhnx16.value != "" ) //("1" || "2" || "3" || "4" || "5" || "6" || "7" || "8" || "9")
+				sudoku[i][j][0]=document.form1.s2qhnx16.value; //==1 || 2 || 3 || 4 || 5 || 6 || 7 || 8 || 9
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			
+			if(document.form1.s2qhnx26.value != "")
+				sudoku[i][j][0]=document.form1.s2qhnx26.value; 
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx36.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx36.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx46.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx46.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx56.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx56.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx66.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx66.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx76.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx76.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx86.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx86.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx96.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx96.value;
+			else
+				sudoku[i][j][0]=0;
+			j=0;
+			i++;
+			
+			
+			if(document.form1.s2qhnx17.value != "" ) //("1" || "2" || "3" || "4" || "5" || "6" || "7" || "8" || "9")
+				sudoku[i][j][0]=document.form1.s2qhnx17.value; //==1 || 2 || 3 || 4 || 5 || 6 || 7 || 8 || 9
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			
+			if(document.form1.s2qhnx27.value != "")
+				sudoku[i][j][0]=document.form1.s2qhnx27.value; 
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx37.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx37.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx47.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx47.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx57.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx57.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx67.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx67.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx77.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx77.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx87.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx87.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx97.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx97.value;
+			else
+				sudoku[i][j][0]=0;
+			j=0;
+			i++;
+			
+			
+					if(document.form1.s2qhnx18.value != "" ) //("1" || "2" || "3" || "4" || "5" || "6" || "7" || "8" || "9")
+				sudoku[i][j][0]=document.form1.s2qhnx18.value; //==1 || 2 || 3 || 4 || 5 || 6 || 7 || 8 || 9
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			
+			if(document.form1.s2qhnx28.value != "")
+				sudoku[i][j][0]=document.form1.s2qhnx28.value; 
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx38.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx38.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx48.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx48.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx58.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx58.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx68.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx68.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx78.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx78.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx88.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx88.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx98.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx98.value;
+			else
+				sudoku[i][j][0]=0;
+			j=0;
+			i++;
+			
+						if(document.form1.s2qhnx19.value != "" ) //("1" || "2" || "3" || "4" || "5" || "6" || "7" || "8" || "9")
+				sudoku[i][j][0]=document.form1.s2qhnx19.value; //==1 || 2 || 3 || 4 || 5 || 6 || 7 || 8 || 9
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			
+			if(document.form1.s2qhnx29.value != "")
+				sudoku[i][j][0]=document.form1.s2qhnx29.value; 
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx39.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx39.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx49.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx49.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx59.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx59.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx69.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx69.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx79.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx79.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx89.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx89.value;
+			else
+				sudoku[i][j][0]=0;
+			j++;
+			if(document.form1.s2qhnx99.value!= "")
+				sudoku[i][j][0]=document.form1.s2qhnx99.value;
+			else
+				sudoku[i][j][0]=0;
+			j=0;
+			i++;
+			
+		}
+		
+		
+		//prints everything in sudoku varo text area
+		function printAll()
+		{
+			var myprintstring=' ';
+			
+			for(row=0;row<9;row++)
+			{
+				myprintstring=myprintstring+'\n ROW:'+row+'\n' + ' ';
+				for(col=0;col<9;col++)
+				{
+					myprintstring=myprintstring+'In '+row+","+col+" we have: ";
+					for(depth=0;depth<10;depth++)
+					{
+						myprintstring=myprintstring+' '+sudoku[row][col][depth]+' ';
+					}
+					myprintstring=myprintstring+'\n ';
+				}
+				
+			}
+			document.getElementById('myTextarea').value = myprintstring;
+			
+		}
+		
+		
+		//printS ONLY WHATS ON THE SURFACE OF ARRAY varo bottom of page
+		function printSudoku()
+		{
+			for(row=0;row<9;row++)
+			{
+				for(col=0;col<9;col++)
+				{
+					
+						document.write(sudoku[row][col][0]+' ');
+				}
+				document.write("<br>");
+			}
+		}
+		//printSudoku();
+		
+		//clears whole sudoku to all 0's
+		function clearAll()
+		{
+			for(row=0;row<9;row++)
+			{
+				for(col=0;col<9;col++)
+				{
+					for(depth=0;depth<10;depth++)
+					{
+						sudoku[row][col][depth]=0;
+					}
+				}
+			}
+			makeNotBold();
+			printToSudoku();
+			nonzeroCount();
+		}
+		
+		//clears array difference back to all 0's
+		function clearAllDiff()
+		{
+			for(row=0;row<9;row++)
+			{
+				for(col=0;col<9;col++)
+				{
+					for(depth=0;depth<10;depth++)
+					{
+						difference[row][col][depth]=0;
+					}
+				}
+			}
+			//printToSudoku();
+		}
+		
+		//displays what array has back into the table
+		function printToSudoku()
+		{
+			var i=0;
+			var j=0;
+			var z=1;
+			//var str ='document.form1.s2qhnx11.value';
+				//document.form1.s2qhnx11.value=0;
+				document.form1.s2qhnx11.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx21.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx31.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx41.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx51.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx61.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx71.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx81.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx91.value=sudoku[i][j][0]; j=0;
+				i++;
+				document.form1.s2qhnx12.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx22.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx32.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx42.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx52.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx62.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx72.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx82.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx92.value=sudoku[i][j][0]; j=0;
+				i++;
+				document.form1.s2qhnx13.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx23.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx33.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx43.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx53.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx63.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx73.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx83.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx93.value=sudoku[i][j][0]; j=0;
+				i++;
+				document.form1.s2qhnx14.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx24.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx34.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx44.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx54.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx64.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx74.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx84.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx94.value=sudoku[i][j][0]; j=0;
+				i++;
+				document.form1.s2qhnx15.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx25.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx35.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx45.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx55.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx65.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx75.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx85.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx95.value=sudoku[i][j][0]; j=0;
+				i++;
+				document.form1.s2qhnx16.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx26.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx36.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx46.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx56.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx66.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx76.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx86.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx96.value=sudoku[i][j][0]; j=0;
+				i++;
+				document.form1.s2qhnx17.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx27.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx37.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx47.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx57.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx67.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx77.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx87.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx97.value=sudoku[i][j][0]; j=0;
+				i++;
+				document.form1.s2qhnx18.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx28.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx38.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx48.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx58.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx68.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx78.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx88.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx98.value=sudoku[i][j][0]; j=0;
+				i++;
+				document.form1.s2qhnx19.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx29.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx39.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx49.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx59.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx69.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx79.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx89.value=sudoku[i][j][0]; j++;
+				document.form1.s2qhnx99.value=sudoku[i][j][0]; j=0;
+				i++;
+		}
+		
+	//Gives range of 0-9 values to depth instead of 0's (represents all numbers that index can have) 
+	function populateDepth() 
+	{ 
+      for (i = 0; i < 9; i++) //ROW 
+	  { 
+		  for (j = 0; j < 9; j++) //Column 
+		  { 
+				  if(sudoku[i][j][0]==0) 
+				  { 
+					for (k = 0; k < 10; k++)    
+						sudoku[i][j][k]=k; 
+				  }  
+				  else
+				  { 
+					for (k = 1; k < 10; k++)    
+						sudoku[i][j][k]=0; 
+				  } 
+		   }       
+	  } 
+	} 
+	
+		//changes puzzle difficulty and reinitializes variables
+		function changeDifficulty()
+		{
+				if(document.getElementById("easy").checked==true)
+				{
+					clearAll();
+					makeNotBold();
+					easy();
+					makeBold();
+					nonzeroCount();
+				}
+				else if(document.getElementById("medium").checked==true)
+				{
+					clearAll();
+					makeNotBold();
+					medium();
+					makeBold();
+					nonzeroCount();
+				}
+				else if(document.getElementById("hard").checked==true)
+				{
+					clearAll();
+					makeNotBold();
+					hard();
+					makeBold();
+					nonzeroCount();
+				}
+				
+				else if(document.getElementById("evil").checked==true)
+				{
+					clearAll();
+					makeNotBold();
+					evil();
+					makeBold();
+					nonzeroCount();
+				}
+				
+				else if(document.getElementById("custom").checked==true)
+				{
+					//clearAll();
+					makeNotBold();
+					//custom();
+					addToArray();
+					makeBold();
+					nonzeroCount();
+					printToSudoku();
+				}
+				
+				else
+				{
+					//clearAll();
+					makeNotBold();
+					copyFromOriginal(); //adds from original array to array
+					makeBold();
+					nonzeroCount();
+					//printToSudoku();
+					//addToArray(); 
+				}
+				
+				//addToArray();
+				document.form1.myTextarea.value="";
+				
+				printToSudoku();
+				
+				populateDepth();
+		}
+		
+		//if DEPTH has all 0's and one none zero, then replace the 0th index with that number (only possibility for index)
+		function place() 
+		{ 
+			var unique=0; 
+			var sum=0; 
+			  
+			for (var i = 0; i < 9; ++i) //ROW 
+			{ 
+			  for (var j = 0; j < 9; ++j) //Column 
+			  { 
+				  if(sudoku[i][j][0]==0) 
+				  { 
+					  for (var k = 0; k < 10; ++k)    
+					  { 
+						  sum +=(sudoku[i][j][k]); //adds up all the k index numbers, if at the end the total is equal to the lonely number, it means its the only one in there 
+						  if(sudoku[i][j][k]!=0) 
+							  unique=sudoku[i][j][k];   
+					  } 
+					  //document.form1.myTextarea.value+"Index: "+i+" , "+j+" has sum= "+sum+" and unique= "+unique+'\n'; 
+					  if(sum==unique)             
+						{ 
+						sudoku[i][j][0]=unique; //puts unique number in sudoku (only number that index can be) 
+						return; 
+						} 
+					  sum=0; 
+					  unique=0; 
+						
+				  } 
+			  } 
+			} 
+		} 
+		
+		//eliminates numbers that are in rows, columns, and box that they cant be based on numbers around it
+		function eliminate() 
+		{ 
+			 //row 
+			 for (var i = 0; i < 9; ++i) //ROW 
+			  { 
+			  for (var j = 0; j < 9; ++j) //Column 
+				  { 
+					  if(sudoku[i][j][0]==0) 
+					  { 
+					  //********************************************************************************************** 
+						for (var row1=0; row1<(9); row1++) //problem!! should start on what ever row index is on 
+						{ 
+						 if(sudoku[i][j][0]!=sudoku[i][row1][0]) //sudoku[i][row1+1][0] is the next row index 
+							{ 
+							var temp = sudoku[i][row1][0]; 
+							sudoku[i][j][temp]=0; 
+							temp=0; 
+							}     
+						} 
+					  }        
+				  }  
+				  //!!! NEED TO CHECK IF LAST CASE IS TRUE         
+			  } 
+			 //column note i and j switch in this case, going vetically first then horizontal on outer loop 
+			  for (var i = 0; i < 9; ++i) //ROW 
+			  { 
+			  for (var j = 0; j < 9; ++j) //Column 
+				  { 
+					  if(sudoku[j][i][0]==0) 
+					  { 
+						for (var col1=0; col1<(9); col1++) 
+						{ 
+						 if(sudoku[j][i][0]!=sudoku[col1][i][0]) //sudoku[col1+1][i][0] is the next row index 
+							{ 
+							var temp2 = sudoku[col1][i][0]; 
+							sudoku[j][i][temp2]=0; 
+							temp2=0; 
+							}     
+						} 
+					  }        
+				  }    
+					  
+			  } 
+			 //box (3 by 3 square matrix) very tricky!!! 
+			  
+			 //FOR ALL BOXES!!!******************************************************************************************************** 
+			 for (var x = 0; x < 9; x+=3) //moves to next box vertically along x //ERRor???????????????????? 
+			  { 
+			  for (var y = 0; y < 9; y+=3) //moves to next box horizontally along y 
+				  { 
+					//BOX 0************************************************ 
+					  for (var i = 0; i < 3; ++i) //3 -size of box 
+					  { 
+					  for (var j = 0; j < 3; ++j) //3 -size of box 
+						  { 
+							   //array finds empty slot that needs to be checked   
+							  if(sudoku[i+x][j+y][0]==0) 
+							  { 
+								  
+							// Index of (0,0) **********************************************************************************************************************   
+								//works for (0,0) case 
+								for (var box1=0; box1<3; box1++) //box1 stands for 2nd and 3rd numbers in that box 
+								{ 
+												 for (var box2=0; box2<3; box2++) 
+												{ 
+													if(sudoku[i+x][j+y][0]!=sudoku[box1+x][box2+y][0]) //sudoku[i][j+1][0] is the next row index 
+													{ 
+														var temp4 = sudoku[box1+x][box2+y][0]; 
+														sudoku[i+x][j+y][temp4]=0; 
+													}     
+												} 
+								}    
+							//<end 0,0> *****************************************************************************************************************              
+							  } 
+								 
+						  }       
+					  } 
+			  //<end BOX>**************************************************** 
+				  } 
+			  } 
+			//<end ALL BOXES>************************************************************************************************** 
+		} 
+		  
+		//if all neighbours in box cant be a certain value, then that index will become that value
+		function eliminateSpecial(x) // var x 
+		{ 
+			 var countNeighbours=0; 
+			 //var x=6; 
+			 //var y=0; 
+			 var temp=0; 
+			 var tempx=0; 
+			 var tempy=0; 
+			 //box (3 by 3 square matrix) very tricky!!! 
+			//for (var x = 0; x < 9; x+=3) //moves to next box vertically along x //ERRor???????????????????? 
+			 // { 
+			  for (var y = 0; y < 9; y+=3) //moves to next box horizontally along y 
+				  { 
+					//BOX 0************************************************ 
+					  //for (var i = 0; i < 3; ++i) //3 -size of box 
+					  { 
+					  //for (var j = 0; j < 3; ++j) //3 -size of box 
+						  { 
+							   //array finds empty slot that needs to be checked   
+							  //if(sudoku[i+x][j+y][0]==0) 
+							  { 
+								  
+							// Checker Value **********************************************************************************************************************   
+								for (var k=0; k<9; k++) 
+								{ 
+									for (var box1=0; box1<3; box1++) //box1 stands for 2nd and 3rd numbers in that box (vertical) 
+									{ 
+												for (var box2=0; box2<3; box2++)//horizontal 
+												{ 
+											   // document.form1.myTextarea.value+"index: "+(i+x)+" , "+(j+y)+" is "+sudoku[i+x][j+y][box2]+'\n';    
+														
+														 if((sudoku[box1+x][box2+y][k]==0)) //cant be itself, and doesnt equal Neighbours sudoku[i+x][j+y][box2]!= 
+														 { 
+															countNeighbours++; 
+														 }  
+														 else
+														 { 
+															 temp=sudoku[box1+x][box2+y][k]; 
+															 tempx=box1+x; 
+															 tempy=box2+y; 
+														 } 
+												 // document.form1.myTextarea.value+"index: "+(i+x)+" , "+(j+y)+" is "+sudoku[i+x][j+y][box2]+'\n'; 
+												} 
+								}  
+								//if(countNeighbours==8) 
+											   //   document.form1.myTextarea.value+countNeighbours+" var (tempx,tempy) is : "+ (tempx)+" "+(tempy)+'\n'; 
+								if(countNeighbours==8)  
+								{ 
+										sudoku[tempx][tempy][0]=temp;// place K in 0th position of index because Neighbours cant be that value     
+										for(var clear=1;clear<10;clear++) 
+										{ 
+											   sudoku[tempx][tempy][clear]=0;  
+										}         
+										return;              
+								} 
+								countNeighbours=0;  
+							   }   
+							//<end 0,0> *****************************************************************************************************************              
+							  }     
+						  }       
+					  } 
+					} 
+				 // } 
+		} 
+		
+		
+		//finds all instances where there are only two possibilities in any row, column or box and takes them away from the possibilies of other indexs in that row, column or box. 
+		function nakedPairs() 
+		{ 
+			 var countPossibilitiesA=0; 
+			 var countPossibilitiesB=0; 
+			 //var x=6; 
+			 //var y=0; 
+			 var temp=0; 
+			 var tempx=0; 
+			 var tempy=0; 
+			   
+			 var first=0; 
+			 var second=0; 
+			 var first2=0; 
+			 var second2=0; 
+			   
+			//HORIZONAL PAIRS 
+			//box (3 by 3 square matrix) very tricky!!! 
+			for (var x = 0; x < 9; x+=3) //moves to next box vertically along x  
+			  { 
+			  for (var y = 0; y < 9; y+=3) //moves to next box horizontally along y 
+				  { 
+				  // Checker Value **********************************************************************************************************************   
+					
+						for (var box1=0; box1<3; box1++) //box1 stands for 2nd and 3rd numbers in that box (vertical) 
+						{ 
+								//for (var box2=0; box2<3; box2++)//horizontal 
+								//{ 
+								  
+								//next to eachother   1 2 
+									for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[box1+x][y][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesA++; 
+											if(countPossibilitiesA==1) 
+												first=sudoku[box1+x][y][k]; 
+											if(countPossibilitiesA==2) 
+												second=sudoku[box1+x][y][k]; 
+										  
+										}  
+								   
+									} 
+									for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[box1+x][y+1][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesB++; 
+											if(countPossibilitiesB==1) 
+												first2=sudoku[box1+x][y+1][k]; 
+											if(countPossibilitiesB==2) 
+												second2=sudoku[box1+x][y+1][k]; 
+									   
+										}  
+								   
+									} 
+									if(countPossibilitiesA==2 && countPossibilitiesB==2 && first==first2 && second==second2) //conditions are met 
+									{ 
+										document.form1.myTextarea.value="PAIR FOUND!"+"At "+x+box1+","+(y)+" And numbers are: "+first+second+'\n'; 
+										for(var z=0; z<9; z++)//remove those possibilities from row or column that those numbers are in.  
+										{ 
+										//document.form1.myTextarea.value+box1+x+","+z+","+first+" is now: "+0+'\n'; 
+										sudoku[box1+x][z][first]=0; 
+										sudoku[box1+x][z][second]=0; 
+										} 
+										sudoku[box1+x][y][first]=first; 
+										sudoku[box1+x][y][second]=second; 
+										sudoku[box1+x][y+1][first]=first; 
+										sudoku[box1+x][y+1][second]=second; 
+									} 
+									 first=0; 
+									 second=0; 
+									 first2=0; 
+									 second2=0; 
+									 countPossibilitiesA=0; 
+									 countPossibilitiesB=0; 
+									   
+									   
+									 //next to each other 1 3 
+									 for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[box1+x][y][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesA++; 
+											if(countPossibilitiesA==1) 
+												first=sudoku[box1+x][y][k]; 
+											if(countPossibilitiesA==2) 
+												second=sudoku[box1+x][y][k]; 
+										  
+										}  
+								   
+									} 
+									for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[box1+x][y+2][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesB++; 
+											if(countPossibilitiesB==1) 
+												first2=sudoku[box1+x][y+2][k]; 
+											if(countPossibilitiesB==2) 
+												second2=sudoku[box1+x][y+2][k]; 
+									   
+										}  
+								   
+									} 
+									if(countPossibilitiesA==2 && countPossibilitiesB==2 && first==first2 && second==second2) //conditions are met 
+									{ 
+										document.form1.myTextarea.value+"PAIR FOUND!"+"At "+x+box1+","+(y)+" And numbers are: "+first+second+'\n'; 
+										for(var z=0; z<9; z++)//remove those possibilities from row or column that those numbers are in.  
+										{ 
+										//document.form1.myTextarea.value+z+'\n'; 
+										sudoku[box1+x][z][first]=0; 
+										sudoku[box1+x][z][second]=0; 
+										} 
+										sudoku[box1+x][y][first]=first; 
+										sudoku[box1+x][y][second]=second; 
+										sudoku[box1+x][y+2][first]=first; 
+										sudoku[box1+x][y+2][second]=second; 
+									} 
+									 first=0; 
+									 second=0; 
+									 first2=0; 
+									 second2=0; 
+									 countPossibilitiesA=0; 
+									 countPossibilitiesB=0; 
+									   
+									 //next to eachother 2 3 
+									//********************* 
+									  
+									for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[box1+x][y+1][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesB++; 
+											if(countPossibilitiesB==1) 
+												first=sudoku[box1+x][y+1][k]; 
+											if(countPossibilitiesB==2) 
+												second=sudoku[box1+x][y+1][k]; 
+									   
+										}  
+								   
+									} 
+									for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[box1+x][y+2][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesA++; 
+											if(countPossibilitiesA==1) 
+												first2=sudoku[box1+x][y+2][k]; 
+											if(countPossibilitiesA==2) 
+												second2=sudoku[box1+x][y+2][k]; 
+										  
+										}  
+								   
+									} 
+									if(countPossibilitiesA==2 && countPossibilitiesB==2 && first==first2 && second==second2) //conditions are met 
+									{ 
+										document.form1.myTextarea.value+"PAIR FOUND!"+"At "+x+box1+","+(y)+" And numbers are: "+first+second+'\n'; 
+										for(var z=0; z<9; z++)//remove those possibilities from row or column that those numbers are in.  
+										{ 
+										//document.form1.myTextarea.value+z+'\n'; 
+										  
+										sudoku[box1+x][z][first]=0; 
+										sudoku[box1+x][z][second]=0; 
+										  
+										} 
+										sudoku[box1+x][y+1][first]=first; 
+										sudoku[box1+x][y+1][second]=second; 
+										sudoku[box1+x][y+2][first]=first; 
+										sudoku[box1+x][y+2][second]=second; 
+										  
+									} 
+									 first=0; 
+									 second=0; 
+									 first2=0; 
+									 second2=0; 
+									 countPossibilitiesA=0; 
+									 countPossibilitiesB=0;                        
+					  } 
+					} 
+				  } 
+			document.form1.myTextarea.value+"vertical"+'\n';    
+					
+			//Vertical PAIRS 
+			//box (3 by 3 square matrix) very tricky!!! 
+			for(var x = 0; x < 9; x+=3) //moves to next box vertically along x //ERRor???????????????????? 
+			  { 
+			  for (var y = 0; y < 9; y+=3) //moves to next box horizontally along y 
+				  { 
+				  // Checker Value **********************************************************************************************************************   
+						for (var box1=0; box1<3; box1++) //box1 stands for 2nd and 3rd numbers in that box (vertical) 
+						{ 
+								//for (var box2=0; box2<3; box2++)//horizontal 
+								//{ 
+								  
+								//next to eachother   1 2 
+									for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[x][box1+y][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesA++; 
+											if(countPossibilitiesA==1) 
+												first=sudoku[x][box1+y][k]; 
+											if(countPossibilitiesA==2) 
+												second=sudoku[x][box1+y][k]; 
+										  
+										}  
+								   
+									} 
+									for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[x+1][box1+y][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesB++; 
+											if(countPossibilitiesB==1) 
+												first2=sudoku[x+1][box1+y][k]; 
+											if(countPossibilitiesB==2) 
+												second2=sudoku[x+1][box1+y][k]; 
+									   
+										}  
+								   
+									} 
+									if(countPossibilitiesA==2 && countPossibilitiesB==2 && first==first2 && second==second2) //conditions are met 
+									{ 
+										document.form1.myTextarea.value+"PAIR FOUND!"+"At "+x+","+(box1+y)+" And numbers are: "+first+second+'\n'; 
+										for(var z=0; z<9; z++)//remove those possibilities from row or column that those numbers are in.  
+										{ 
+										  
+											//document.form1.myTextarea.value+box1+x+","+z+","+first+" is now: "+0; 
+											sudoku[z][box1+y][first]=0; 
+											sudoku[z][box1+y][second]=0; 
+										} 
+		  
+										sudoku[x][box1+y][first]=first; 
+										sudoku[x][box1+y][second]=second; 
+										sudoku[x+1][box1+y][first]=first; 
+										sudoku[x+1][box1+y][second]=second; 
+									} 
+									 first=0; 
+									 second=0; 
+									 first2=0; 
+									 second2=0; 
+									 countPossibilitiesA=0; 
+									 countPossibilitiesB=0; 
+									   
+									   
+									 //next to each other 1 3 
+									 for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[x][box1+y][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesA++; 
+											if(countPossibilitiesA==1) 
+												first=sudoku[x][box1+y][k]; 
+											if(countPossibilitiesA==2) 
+												second=sudoku[x][box1+y][k]; 
+										  
+										}  
+								   
+									} 
+									for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[x+2][box1+y][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesB++; 
+											if(countPossibilitiesB==1) 
+												first2=sudoku[x+2][box1+y][k]; 
+											if(countPossibilitiesB==2) 
+												second2=sudoku[x+2][box1+y][k]; 
+									   
+										}  
+								   
+									} 
+									if(countPossibilitiesA==2 && countPossibilitiesB==2 && first==first2 && second==second2) //conditions are met 
+									{ 
+										document.form1.myTextarea.value+"PAIR FOUND!"+"At "+x+","+(box1+y)+" And numbers are: "+first+second+'\n'; 
+										for(var z=0; z<9; z++)//remove those possibilities from row or column that those numbers are in.  
+										{ 
+										sudoku[z][box1+y][first]=0; 
+										sudoku[z][box1+y][second]=0; 
+										} 
+										sudoku[x][box1+y][first]=first; 
+										sudoku[x][box1+y][second]=second; 
+										sudoku[x+2][box1+y][first]=first; 
+										sudoku[x+2][box1+y][second]=second; 
+									} 
+									 first=0; 
+									 second=0; 
+									 first2=0; 
+									 second2=0; 
+									 countPossibilitiesA=0; 
+									 countPossibilitiesB=0; 
+									   
+									 //next to eachother 2 3 
+									   
+									 for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[x+2][box1+y][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesA++; 
+											if(countPossibilitiesA==1) 
+												first=sudoku[x+2][box1+y][k]; 
+											if(countPossibilitiesA==2) 
+												second=sudoku[x+2][box1+y][k]; 
+										  
+										}  
+								   
+									} 
+									for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[x+1][box1+y][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesB++; 
+											if(countPossibilitiesB==1) 
+												first2=sudoku[x+1][box1+y][k]; 
+											if(countPossibilitiesB==2) 
+												second2=sudoku[x+1][box1+y][k]; 
+									   
+										}  
+								   
+									} 
+									if(countPossibilitiesA==2 && countPossibilitiesB==2 && first==first2 && second==second2) //conditions are met 
+									{ 
+										document.form1.myTextarea.value+"PAIR FOUND!"+"At "+x+","+(box1+y)+" And numbers are: "+first+second+'\n'; 
+										for(var z=0; z<9; z++)//remove those possibilities from row or column that those numbers are in.  
+										{ 
+										sudoku[z][box1+y][first]=0; 
+										sudoku[z][box1+y][second]=0; 
+										} 
+										sudoku[x+2][box1+y][first]=first; 
+										sudoku[x+2][box1+y][second]=second; 
+										sudoku[x+1][box1+y][first]=first; 
+										sudoku[x+1][box1+y][second]=second; 
+									} 
+									 first=0; 
+									 second=0; 
+									 first2=0; 
+									 second2=0; 
+									 countPossibilitiesA=0; 
+									 countPossibilitiesB=0; 	  
+								//}  		 
+					  } 
+					} 
+				  } 
+		} 
+		 
+
+		 
+		//a bit harder, other combinations 
+		function nakedTrips() //finds all instances where there are only three possibilities in any row, column or box and takes them away from the possibilies of other indexs in that row, column or box. 
+		{ 
+			 var countPossibilitiesA=0; 
+			 var countPossibilitiesB=0; 
+			 var countPossibilitiesC=0; 
+		  
+			 //var x=6; 
+			 //var y=0; 
+			 var temp=0; 
+			 var tempx=0; 
+			 var tempy=0; 
+			   
+			 var first=0; 
+			 var second=0; 
+			 var third=0; 
+			 var first2=0; 
+			 var second2=0; 
+			 var third2=0; 
+			 var first3=0; 
+			 var second3=0; 
+			 var third3=0; 
+			   
+			//HORIZONAL PAIRS 
+			//box (3 by 3 square matrix) very tricky!!! 
+			for (var x = 0; x < 9; x+=3) //moves to next box vertically along x  
+			  { 
+			  for (var y = 0; y < 9; y+=3) //moves to next box horizontally along y 
+				  { 
+				  // Checker Value **********************************************************************************************************************   
+					
+						for (var box1=0; box1<3; box1++) //box1 stands for 2nd and 3rd numbers in that box (vertical) 
+						{ 
+														  
+								//next to eachother   1 2 
+									for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[box1+x][y][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesA++; 
+											if(countPossibilitiesA==1) 
+												first=sudoku[box1+x][y][k]; 
+											if(countPossibilitiesA==2) 
+												second=sudoku[box1+x][y][k]; 
+											if(countPossibilitiesA==3) 
+												third=sudoku[box1+x][y][k]; 
+										}  
+								   
+									} 
+									for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[box1+x][y+1][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesB++; 
+											if(countPossibilitiesB==1) 
+												first2=sudoku[box1+x][y+1][k]; 
+											if(countPossibilitiesB==2) 
+												second2=sudoku[box1+x][y+1][k]; 
+											if(countPossibilitiesA==3) 
+												third2=sudoku[box1+x][y+1][k]; 
+									   
+										}  
+								   
+									} 
+									for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[box1+x][y+2][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesC++; 
+											if(countPossibilitiesC==1) 
+												first3=sudoku[box1+x][y+2][k]; 
+											if(countPossibilitiesC==2) 
+												second3=sudoku[box1+x][y+2][k]; 
+											if(countPossibilitiesA==3) 
+												third3=sudoku[box1+x][y+2][k]; 
+									   
+										}  
+								   
+									} 
+									 //conditions are met 
+									if(countPossibilitiesA==3 && countPossibilitiesB==3 && countPossibilitiesC==3 && first==first2==first3 && second==second2==second3 && third==third2==third3 )  
+										//if all 3 are equal case 3 3 3 
+									{ 
+										document.form1.myTextarea.value+"PAIR FOUND!"+"At "+x+box1+","+(y)+" And numbers are: "+first+second+'\n'; 
+										for(var z=0; z<9; z++)//remove those possibilities from row or column that those numbers are in.  
+										{ 
+										//document.form1.myTextarea.value+box1+x+","+z+","+first+" is now: "+0+'\n'; 
+										sudoku[box1+x][z][first]=0; 
+										sudoku[box1+x][z][second]=0; 
+										sudoku[box1+x][z][third]=0; 
+										} 
+										sudoku[box1+x][y][first]=first; 
+										sudoku[box1+x][y][second]=second; 
+										sudoku[box1+x][y][third]=third; 
+		  
+										sudoku[box1+x][y+1][first]=first; 
+										sudoku[box1+x][y+1][second]=second; 
+										sudoku[box1+x][y+1][third]=third; 
+										  
+										sudoku[box1+x][y+2][first]=first; 
+										sudoku[box1+x][y+2][second]=second; 
+										sudoku[box1+x][y+2][third]=third; 
+									} 
+		  
+									if(countPossibilitiesA==3 && countPossibilitiesB==3 && countPossibilitiesC==2 && first==first2==first3 && second==second2==second3  && third==third2 && third3==0)  
+									{ 
+										//case 3 3 2 
+										document.form1.myTextarea.value+"PAIR FOUND!"+"At "+x+box1+","+(y)+" And numbers are: "+first+second+'\n'; 
+										for(var z=0; z<9; z++)//remove those possibilities from row or column that those numbers are in.  
+										{ 
+										//document.form1.myTextarea.value+box1+x+","+z+","+first+" is now: "+0+'\n'; 
+										sudoku[box1+x][z][first]=0; 
+										sudoku[box1+x][z][second]=0; 
+										sudoku[box1+x][z][third]=0; 
+										} 
+										sudoku[box1+x][y][first]=first; 
+										sudoku[box1+x][y][second]=second; 
+										sudoku[box1+x][y][third]=third; 
+		  
+										sudoku[box1+x][y+1][first]=first; 
+										sudoku[box1+x][y+1][second]=second; 
+										sudoku[box1+x][y+1][third]=third; 
+										  
+										sudoku[box1+x][y+2][first]=first; 
+										sudoku[box1+x][y+2][second]=second; 
+										sudoku[box1+x][y+2][third]=third; 
+									} 
+									if(countPossibilitiesA==3 && countPossibilitiesB==2 && countPossibilitiesC==3 && first==first2==first3 && second==second2 && second3==0  && third==third2==third3)  
+									{ 
+										//case 3 2 3 
+										document.form1.myTextarea.value+"PAIR FOUND!"+"At "+x+box1+","+(y)+" And numbers are: "+first+second+'\n'; 
+										for(var z=0; z<9; z++)//remove those possibilities from row or column that those numbers are in.  
+										{ 
+										//document.form1.myTextarea.value+box1+x+","+z+","+first+" is now: "+0+'\n'; 
+										sudoku[box1+x][z][first]=0; 
+										sudoku[box1+x][z][second]=0; 
+										sudoku[box1+x][z][third]=0; 
+										} 
+										sudoku[box1+x][y][first]=first; 
+										sudoku[box1+x][y][second]=second; 
+										sudoku[box1+x][y][third]=third; 
+		  
+										sudoku[box1+x][y+1][first]=first; 
+										sudoku[box1+x][y+1][second]=second; 
+										sudoku[box1+x][y+1][third]=third; 
+										  
+										sudoku[box1+x][y+2][first]=first; 
+										sudoku[box1+x][y+2][second]=second; 
+										sudoku[box1+x][y+2][third]=third; 
+									} 
+									if(countPossibilitiesA==2 && countPossibilitiesB==3 && countPossibilitiesC==3 && first==first2 && first3==0 && second==second2==second3  && third==third2==third3)  
+									{ 
+										//case 2 3 3 
+										document.form1.myTextarea.value+"PAIR FOUND!"+"At "+x+box1+","+(y)+" And numbers are: "+first+second+'\n'; 
+										for(var z=0; z<9; z++)//remove those possibilities from row or column that those numbers are in.  
+										{ 
+										//document.form1.myTextarea.value+box1+x+","+z+","+first+" is now: "+0+'\n'; 
+										sudoku[box1+x][z][first]=0; 
+										sudoku[box1+x][z][second]=0; 
+										sudoku[box1+x][z][third]=0; 
+										} 
+										sudoku[box1+x][y][first]=first; 
+										sudoku[box1+x][y][second]=second; 
+										sudoku[box1+x][y][third]=third; 
+		  
+										sudoku[box1+x][y+1][first]=first; 
+										sudoku[box1+x][y+1][second]=second; 
+										sudoku[box1+x][y+1][third]=third; 
+										  
+										sudoku[box1+x][y+2][first]=first; 
+										sudoku[box1+x][y+2][second]=second; 
+										sudoku[box1+x][y+2][third]=third; 
+									} 
+									if(countPossibilitiesA==3 && countPossibilitiesB==2 && countPossibilitiesC==2 && first==first2==first3 && second==second2 && second3==0  && third==third2 && 0==third3)  
+									{ 
+										//case 3 2 2 
+										document.form1.myTextarea.value+"PAIR FOUND!"+"At "+x+box1+","+(y)+" And numbers are: "+first+second+'\n'; 
+										for(var z=0; z<9; z++)//remove those possibilities from row or column that those numbers are in.  
+										{ 
+										//document.form1.myTextarea.value+box1+x+","+z+","+first+" is now: "+0+'\n'; 
+										sudoku[box1+x][z][first]=0; 
+										sudoku[box1+x][z][second]=0; 
+										sudoku[box1+x][z][third]=0; 
+										} 
+										sudoku[box1+x][y][first]=first; 
+										sudoku[box1+x][y][second]=second; 
+										sudoku[box1+x][y][third]=third; 
+		  
+										sudoku[box1+x][y+1][first]=first; 
+										sudoku[box1+x][y+1][second]=second; 
+										sudoku[box1+x][y+1][third]=third; 
+										  
+										sudoku[box1+x][y+2][first]=first; 
+										sudoku[box1+x][y+2][second]=second; 
+										sudoku[box1+x][y+2][third]=third; 
+									} 
+									if(countPossibilitiesA==2 && countPossibilitiesB==3 && countPossibilitiesC==2 && first==first2 && 0==first3 && second==second2==second3  && third==third2 && 0==third3)  
+									{ 
+										//case 2 3 2 
+										document.form1.myTextarea.value+"PAIR FOUND!"+"At "+x+box1+","+(y)+" And numbers are: "+first+second+'\n'; 
+										for(var z=0; z<9; z++)//remove those possibilities from row or column that those numbers are in.  
+										{ 
+										//document.form1.myTextarea.value+box1+x+","+z+","+first+" is now: "+0+'\n'; 
+										sudoku[box1+x][z][first]=0; 
+										sudoku[box1+x][z][second]=0; 
+										sudoku[box1+x][z][third]=0; 
+										} 
+										sudoku[box1+x][y][first]=first; 
+										sudoku[box1+x][y][second]=second; 
+										sudoku[box1+x][y][third]=third; 
+		  
+										sudoku[box1+x][y+1][first]=first; 
+										sudoku[box1+x][y+1][second]=second; 
+										sudoku[box1+x][y+1][third]=third; 
+										  
+										sudoku[box1+x][y+2][first]=first; 
+										sudoku[box1+x][y+2][second]=second; 
+										sudoku[box1+x][y+2][third]=third; 
+									} 
+									if(countPossibilitiesA==2 && countPossibilitiesB==2 && countPossibilitiesC==3 && first==first2 && 0==first3 && second==second2 && second3==0  && third==third2==third3)  
+									{ 
+										//case 2 2 3 
+										document.form1.myTextarea.value+"PAIR FOUND!"+"At "+x+box1+","+(y)+" And numbers are: "+first+second+'\n'; 
+										for(var z=0; z<9; z++)//remove those possibilities from row or column that those numbers are in.  
+										{ 
+										//document.form1.myTextarea.value+box1+x+","+z+","+first+" is now: "+0+'\n'; 
+										sudoku[box1+x][z][first]=0; 
+										sudoku[box1+x][z][second]=0; 
+										sudoku[box1+x][z][third]=0; 
+										} 
+										sudoku[box1+x][y][first]=first; 
+										sudoku[box1+x][y][second]=second; 
+										sudoku[box1+x][y][third]=third; 
+		  
+										sudoku[box1+x][y+1][first]=first; 
+										sudoku[box1+x][y+1][second]=second; 
+										sudoku[box1+x][y+1][third]=third; 
+										  
+										sudoku[box1+x][y+2][first]=first; 
+										sudoku[box1+x][y+2][second]=second; 
+										sudoku[box1+x][y+2][third]=third; 
+									} 
+					// 2 2 2*********************************************************************************************************************** 
+									/*if(countPossibilitiesA==2 && countPossibilitiesB==2 )//&& countPossibilitiesC==2 && third==third2==third3==0 &&  
+										//( (first==first2 ) || (second==second2) || (third==third2) 
+										//(first==first2 ) || (second==second2) || (third==third2))) 
+									{ 
+										//case 2 2 2 
+										  
+										if((third==third2 && first==first2)) 
+										{ 
+											document.form1.myTextarea.value+"PAIR FOUND!"+"At "+x+box1+","+(y)+" And numbers are: "+first+second+'\n'; 
+											for(var z=0; z<9; z++)//remove those possibilities from row or column that those numbers are in.  
+											{ 
+											//document.form1.myTextarea.value+box1+x+","+z+","+first+" is now: "+0+'\n'; 
+											sudoku[box1+x][z][first]=0; 
+											sudoku[box1+x][z][second]=0; 
+											sudoku[box1+x][z][third]=0; 
+										} 
+										sudoku[box1+x][y][first]=first; 
+										//sudoku[box1+x][y][second]=second; 
+										sudoku[box1+x][y][third]=third; 
+		  
+										sudoku[box1+x][y+1][first]=first; 
+										//sudoku[box1+x][y+1][second]=second; 
+										sudoku[box1+x][y+1][third]=third; 
+										  
+										sudoku[box1+x][y+2][first]=first; 
+										//sudoku[box1+x][y+2][second]=second; 
+										sudoku[box1+x][y+2][third]=third; 
+										} 
+										if(second==second2  && third==third2) 
+										{ 
+											//sudoku[box1+x][y][first]=first; 
+										sudoku[box1+x][y][second]=second; 
+										sudoku[box1+x][y][third]=third; 
+		  
+										//sudoku[box1+x][y+1][first]=first; 
+										sudoku[box1+x][y+1][second]=second; 
+										sudoku[box1+x][y+1][third]=third; 
+										  
+										//sudoku[box1+x][y+2][first]=first; 
+										sudoku[box1+x][y+2][second]=second; 
+										sudoku[box1+x][y+2][third]=third; 
+										} 
+		  
+		  
+										if(second==second2  && first==first2) 
+										{ 
+											sudoku[box1+x][y][first]=first; 
+										sudoku[box1+x][y][second]=second; 
+										//sudoku[box1+x][y][third]=third; 
+		  
+										sudoku[box1+x][y+1][first]=first; 
+										sudoku[box1+x][y+1][second]=second; 
+										//sudoku[box1+x][y+1][third]=third; 
+										  
+										sudoku[box1+x][y+2][first]=first; 
+										sudoku[box1+x][y+2][second]=second; 
+										//sudoku[box1+x][y+2][third]=third; 
+										} 
+									} 
+									 first=0; 
+									 second=0; 
+									 third=0; 
+									 first2=0; 
+									 second2=0; 
+									 third2=0; 
+									 first3=0; 
+									 second3=0; 
+									 third3=0; 
+									 countPossibilitiesA=0; 
+									 countPossibilitiesB=0; 
+									 countPossibilitiesC=0; 
+									   
+								
+					  } 
+					} 
+				  } 
+			document.form1.myTextarea.value+"vertical"+'\n';    
+					
+			//Vertical PAIRS 
+			//box (3 by 3 square matrix) very tricky!!! 
+			for(var x = 0; x < 9; x+=3) //moves to next box vertically along x //ERRor???????????????????? 
+			  { 
+			  for (var y = 0; y < 9; y+=3) //moves to next box horizontally along y 
+				  { 
+				  // Checker Value **********************************************************************************************************************   
+						for (var box1=0; box1<3; box1++) //box1 stands for 2nd and 3rd numbers in that box (vertical) 
+						{ 
+														  
+								//next to eachother   1 2 
+									for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[x][box1+y][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesA++; 
+											if(countPossibilitiesA==1) 
+												first=sudoku[x][box1+y][k]; 
+											if(countPossibilitiesA==2) 
+												second=sudoku[x][box1+y][k]; 
+											if(countPossibilitiesA==3) 
+												third=sudoku[x][box1+y][k]; 
+										  
+										}  
+								   
+									} 
+									for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[x+1][box1+y][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesB++; 
+											if(countPossibilitiesB==1) 
+												first2=sudoku[x+1][box1+y][k]; 
+											if(countPossibilitiesB==2) 
+												second2=sudoku[x+1][box1+y][k]; 
+											if(countPossibilitiesB==3) 
+												third2=sudoku[x+1][box1+y][k]; 
+									   
+										}  
+								   
+									} 
+									for (var k=1; k<10; k++) 
+									{ 
+										if((sudoku[x+2][box1+y][k]!=0)) //counts number of index possibilities 
+										{ 
+											countPossibilitiesC++; 
+											if(countPossibilitiesC==1) 
+												first3=sudoku[x+2][box1+y][k]; 
+											if(countPossibilitiesC==2) 
+												second3=sudoku[x+2][box1+y][k]; 
+											 if(countPossibilitiesC==3) 
+												third3=sudoku[x+2][box1+y][k]; 
+									   
+										}  
+								   
+									} 
+									if(countPossibilitiesA==3 && countPossibilitiesB==3 && first==first2 && second==second2 && countPossibilitiesC==3 && third==third2) //conditions are met 
+									{ 
+										document.form1.myTextarea.value+"PAIR FOUND!"+"At "+x+","+(box1+y)+" And numbers are: "+first+second+'\n'; 
+										for(var z=0; z<9; z++)//remove those possibilities from row or column that those numbers are in.  
+										{ 
+										  
+											//document.form1.myTextarea.value+box1+x+","+z+","+first+" is now: "+0; 
+											sudoku[z][box1+y][first]=0; 
+											sudoku[z][box1+y][second]=0; 
+											sudoku[z][box1+y][third]=0; 
+										} 
+		  
+										sudoku[x][box1+y][first]=first; 
+										sudoku[x][box1+y][second]=second; 
+										sudoku[x][box1+y][third]=third; 
+		  
+										sudoku[x+1][box1+y][first]=first; 
+										sudoku[x+1][box1+y][second]=second; 
+										sudoku[x+1][box1+y][third]=third; 
+		  
+										sudoku[x+2][box1+y][first]=first; 
+										sudoku[x+2][box1+y][second]=second; 
+										sudoku[x+2][box1+y][third]=third; 
+									} 
+									 first=0; 
+									 second=0; 
+									 third=0; 
+									 first2=0; 
+									 second2=0; 
+									 third2=0; 
+									 first3=0; 
+									 second3=0; 
+									 third3=0; 
+									 countPossibilitiesA=0; 
+									 countPossibilitiesB=0; 
+									 countPossibilitiesC=0; 
+			  
+					  } */
+					} 
+				  } 
+		}
+	}
+		 /*
+		//also a bit harder as other combinations might exist 
+		function nakedQuads() //finds all instances where there are only 4 possibilities in any row, column or box and takes them away from the possibilies of other indexs in that row, column or box. 
+		{ 
+			  
+		} 
+		  
+		function pointingPairs() //if there are two possiblities in a row or column in that box, then remove all possibilies from that row or column.  
+		{ 
+			  
+		} 
+		*/  
+		function pointingTrips() //if there are three possiblities in a row or column in that box, then remove all possibilies from that row or column.  
+		{ 
+			  
+		}
+		  
+		
+		
+		
+		//copies sudoku array to difference array
+		function copyDifference() //coppies sudoku to original array 
+		{ 
+			  for (var i = 0; i < 9; ++i) //ROW 
+			  { 
+				   for (var j = 0; j < 9; ++j) //Column 
+				   { 
+						for (var k = 0; k < 10; ++k)    //depth
+						{ 
+							difference[i][j][k]=sudoku[i][j][k];  
+						}              
+				   } 
+			  } 
+		} 
+		  
+		// find difference between two sudokus/matrices/arrays, Finds changes that were made and reports them 
+		function differenceArr()
+		{ 
+			  var dif=false; 
+			  var count=0; 
+				
+			  for (var i = 0; i < 9; ++i) //ROW 
+			  { 
+					for (var j = 0; j < 9; ++j) //Column 
+					{ 
+					 
+					   if(difference[i][j][0]!=sudoku[i][j][0]) 
+						{ 
+								//document.form1.myTextarea.value+"Difference is at: "+ i + ", " + j +" is "+sudoku[i][j][0]+'\n';  
+								count++; 
+								dif=true; 
+						} 						   
+					} 
+			  } 
+			  //document.form1.myTextarea.value+"numbers changed "+count+'\n'+'\n'; 
+			  
+			  if(dif==false) 
+			  { 
+				  document.form1.myTextarea.value="There is NO difference"+'\n';  
+				  return false; 
+			  } 
+			  else 
+				return true; 
+		} 
+		
+		// find difference between two sudokus/matrices/arrays, Finds changes that were made and reports them   
+		function differenceTotal()
+		{ 
+			  var dif=false; 
+			  var count=0; 
+				document.form1.myTextarea.value= 'DIFFERENCE FUNCTION'+'\n ';
+				
+			  for (var i = 0; i < 9; ++i) //ROW 
+			  { 
+			   for (var j = 0; j < 9; ++j) //Column 
+			   { 
+				   for (var k = 0; k < 10; ++k) //depth                   
+				   {    
+						if(difference[i][j][k]!=sudoku[i][j][k]) 
+						{ 
+								 //PRINTS LAST OCCURANCE ONLY
+								 document.form1.myTextarea.value= document.form1.myTextarea.value+'Difference is at:'+ i + ', ' + j +', '+ k +' is '+sudoku[i][j][k]+'\n ';  //document.form1.myTextarea.value + 
+								count++; 
+								dif=true; 
+						} 
+										   
+				    } 
+			    } 
+			  } 
+			  //document.form1.myTextarea.value= document.form1.myTextarea.value + "Numbers changed: "+ count +"<br>";  
+			  
+			  if(dif==false) 
+			  { 
+					//document.form1.myTextarea.value= document.form1.myTextarea.value + "There is NO difference!! "+"<br>";  
+					return false; 
+			  } 
+			  else 
+					return true; 
+		} 
+		
+		
+		function nonzeroCount()//finds and returns number of nonzero numbers 
+		{ 
+			 var count=0; 
+			   
+			 for (var i = 0; i < 9; ++i) //ROW 
+			  { 
+				  for (var j = 0; j < 9; ++j) //Column 
+				  { 
+					  if(sudoku[i][j][0]!=0) 
+						count++; 
+				  }     
+			  } 
+			 //return count; //returns number of non zero numbers 
+			 document.form1.unsolved.value=(81-count);
+		}
+		
+		//copies sudoku array to original array
+		function copyArray()
+		{
+			for(row=0;row<9;row++)
+			{
+				for(col=0;col<9;col++)
+				{
+					for(depth=0;depth<10;depth++)
+					{
+						original[row][col][depth]=sudoku[row][col][depth];
+					}
+				}
+			}
+		}
+				
+		//copies back from original array to sudoku array
+		function copyFromOriginal()
+		{
+			for(row=0;row<9;row++)
+			{
+				for(col=0;col<9;col++)
+				{
+					for(depth=0;depth<10;depth++)
+					{
+						sudoku[row][col][depth]=original[row][col][depth];
+					}
+				}
+			}
+		}
+		
+		//solves sudoku and prints out results
+		function solve()
+		{
+			var countSteps=0;   
+			clearAllDiff();
+			//differenceArr=true;
+						
+			 while(differenceArr())//check()==false)// makes sure there are still 0's to replace with numbers.  
+			{ 
+				  copyDifference();//copies result to another matrix called difference so function difference() could be used 
+				  countSteps++; 
+				  eliminate();
+				  
+					for(var i=0; i<3; i++) 
+					{ 
+							  eliminateSpecial(0); 
+							  eliminateSpecial(3); 
+							  eliminateSpecial(6); 
+							  //difference(); 
+							  //differenceArr();
+					} 
+					place();
+			} 
+    
+			  //printSudoku(); 
+			  //document.form1.myTextarea.value +'\n'+"My loop took: "+ countSteps+" cycles."+'\n'; 
+			  nonzeroCount();
+			  makeBold();
+			  printToSudoku();
+			  document.form1.myTextarea.value= "The number of loops was: " + countSteps; //WORKS
+			  //document.getElementById('myTextarea').value = "The number of loops was: " + countSteps; //Also works
+		}
+		
+		//Executes one step at a time instead of going through while loop
+		function stepbystep()
+		{
+			//makeNotBold();
+			var countSteps=0;   
+			clearAllDiff();
+			//differenceArr=true;
+			
+				  copyDifference();//copies result to another matrix called difference so function difference() could be used 
+				  countSteps++; 
+				  eliminate();
+				  
+					for(var i=0; i<3; i++) 
+					{ 
+							  eliminateSpecial(0); 
+							  eliminateSpecial(3); 
+							  eliminateSpecial(6); 
+							  //difference(); 
+							  //differenceArr();
+					} 
+					place();
+		
+    
+			  //printSudoku(); 
+			  //document.form1.myTextarea.value +'\n'+"My loop took: "+ countSteps+" cycles."+'\n'; 
+			  nonzeroCount();
+			  makeBold();
+			  printToSudoku();
+			  //document.form1.myTextarea.value= "The number of loops was: " + countSteps; //WORKS
+			  //document.getElementById('myTextarea').value = "The number of loops was: " + countSteps; //Also works
+		}
+
+		
+		//Checks given as true for initial value
+		function check()
+		{
+		  document.getElementById("given").checked=true;
+		}
+		
+		//CHANGES PUZZLE BASED ON DIFFICULTY SELECTED
+		if(document.getElementById("easy").checked==true)
+		{
+			makeNotBold();
+			clearAll();
+			easy();
+
+		}
+		else if(document.getElementById("medium").checked==true)
+		{
+			makeNotBold();
+			clearAll();
+			medium();
+		}
+		else if(document.getElementById("hard").checked==true)
+		{
+			makeNotBold();
+			clearAll();
+			hard();
+	
+		}
+		else if(document.getElementById("evil").checked==true)
+		{
+			makeNotBold();
+			clearAll();
+			evil();
+			makeBold();
+		}
+		else
+		{
+			//clearAll();
+			makeNotBold();
+			addToArray();
+			makeBold();
+		}
+		
+		//Naked Pairs and difference are executed
+		function advanced()
+		{
+			
+			nakedPairs();
+			differenceTotal();
+		}
+		
+		//naked trips are executed
+		function nTrips()
+		{
+			
+			nakedTrips();
+			differenceTotal();
+		}
+		
+		//pointing pairs are executed
+		function pTrips()
+		{
+			
+			pointingTrips();
+			differenceTotal();
+		}
+		//saves custom array of user
+		function saveCustom()
+		{
+			
+		}
+		/*  
+		// Actual WORK and computation, eliminate and eliminate special gets rid of possibilites and eliminates numbers ***************** 
+		//Fetches coordinates that have most 0's (most eliminated numbers, closest to knowing what value might be) 
+		//***helper function to prevent waisting time and computatoin and picks best starting spot where the most numbers reside and most elimations can be made*********.  
+		
+		function nextCandidate() // finds and returns the index of where there is the most amount of 0's in the DEPTH (meaning use that index and try to plug it in) 
+		{ 
+			 var most = 0; //most 0's 
+			 var tempMost = 0; // Temporary most for each index 
+			 var tempX=0; 
+			 var tempY=0; 
+			   
+			 for (var i = 0; i < 9; ++i) //ROW 
+			  { 
+			   for (var j = 0; j < 9; ++j) //Column 
+			   { 
+				  if(sudoku[i][j][0]==0) { 
+										 for (var k = 0; k < 10; ++k)    
+										 { 
+											 if(sudoku[i][j][k]==0) 
+											 tempMost++; 
+										 } 
+										 if(tempMost>most) 
+										 //document.form1.myTextarea.value+most+" " +tempMost+'\n'; 
+										 { 
+										 most=tempMost; 
+										 tempX=i; 
+										 tempY=j; 
+										 } 
+										 tempMost=0; 
+				   }     
+			   } 
+			  } 
+			  document.form1.myTextarea.value+"Next Candidate is at: "+tempX+" , "+tempY+'\n'; 
+			  printIndex(tempX, tempY); 
+			  return tempX, tempY; 
+		} 
+		*/ 
+	
+		/* 
+		// print FUNCTIONS**************************************************************** 
+		
+		function printIndex(var a, var b) //prints only specific index 
+		{ 
+			document.form1.myTextarea.value+"Index "+ a +" , "+b+" is "; 
+			for (var k = 0; k < DEPTH; ++k)            
+			document.form1.myTextarea.value+sudoku[a][b][k]+" "; 
+			document.form1.myTextarea.value+'\n'; 
+		} 
+		
+				
+				// NEW FUNCTIONS **********************************************************************************
+		/*
+		function check() //checks all rows and columns to make sure there are no matches and that sudoku is solved correctly 
+		{ 
+			 for (var i = 0; i < Row; ++i) //ROW 
+			  { 
+				  for (var j = 0; j < Column; ++j) //Column 
+				  { 
+					  if(sudoku[i][j][0]==0) 
+					  { 
+							document.form1.myTextarea.value+"Not done yet"+'\n'; 
+						  return false; //if not done (and K is still 0) 
+					  } 
+						
+				  }     
+			  } 
+			  document.form1.myTextarea.value+"DONE!"+'\n'; 
+			 return true; //if DONE (and all k is some number)    
+		} 
+		
+	*/
+		//*************************************************************************************************
+		
+		
+
+		//EXECUTE FUNCTIONS*******************************************************************
+		check();
+		
+		printToSudoku();
+		
+		populateDepth();
+		
+		copyArray();
+		
+		nonzeroCount();
+
+		
+	
+		
+  	</script>
+  	<noscript>
+  		<h3>JavaScript is Required</h3>
+  	</noscript>
+ <!--START JAVASCRIPT-->
+
+
+ 
+ 
+ 
+	For more detail about functions used, including: explanations, stategies and more, please visit:<br>
+	<a href = "http://www.sudokuwiki.org/strategy_families">Sudoku Strategies </a> <br>
+  	
+  	</body>
+</html>

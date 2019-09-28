@@ -1,0 +1,96 @@
+	  body { background: black; color: #80c0c0 }
+      a:link { color: #ff8080 }
+      a:visited { color: #ff0000 }
+	  h1, h2, div.class5, blockquote { background: #000080 }
+	  
+	  tr{background: yellow;}
+	
+
+	  
+	  /*td {size: 30px; width: 20px; height: 10px; font-size:20px;}*/
+	  .s0,.d0{margin:0;  
+	  width: 50px; 
+	  height: 50px;
+	  vertical-align: middle;
+	  text-align: center;
+    font-size: 1.4em;}
+	
+	.a0{margin:0;  
+	  width: 50px; 
+	  height: 50px;
+	  vertical-align: middle;
+	  text-align: center;
+    font-size: 1.4em;
+	border-bottom: solid 5px yellow;
+	
+	}
+	.side
+	{margin:0;  
+	  width: 50px; 
+	  height: 50px;
+	  vertical-align: middle;
+	  text-align: center;
+    font-size: 1.4em;
+	border-right: solid 5px yellow;
+	
+	}
+	.z0
+	{border-bottom: solid 5px yellow;
+	
+	}
+    /*width: 11.111111%;
+    padding-bottom: 11.111111%;
+	 bottom: 0;
+    left: 0;
+    right: 0;
+    line-height: 0;
+	padding:0;*/
+	}
+	  
+	 
+.border1{	border-bottom: solid 100px red;}
+	 
+
+
+/* This button was generated using CSSButtonGenerator.com */
+	  
+      /*a:active { color: #a05050 }
+      a.case1:link { background: green }
+      p:first-line { margin-left: 25px }
+      div.foo:first-line {
+                 font-weight: bold;
+                 margin-left: 30px }
+      div:first-letter {
+                 font-size: x-large; 
+                 color: #ffffff }
+      ul ul li {
+                 font-size: x-large; 
+                 font-decoration: italic }
+      h2 em { font-weight: 900 }
+      h2.ex1 {
+               color: green;       /* This type of heading MUST be Green and Large! */
+            /*       line-height: 50px; 
+                 font-size: 40px }
+      .funkyclass {
+                 font: 36pt/40pt courier;
+                 font-variant: small-caps;
+                 border: thick dashed blue }
+      #tagid1 {
+                 padding: 20px; 
+                 border: 20px groove #ffffff }
+      .class1, #tagid2 { font-family: 'comic sans ms', fantasy; color: rgb(100%,100%,0%) }*/
+      
+      /*p.special {
+                 font: 12pt/14pt sans-serif;
+                 margin: 5px 0px 2px 25px;
+                 border: medium dashed #ff0000;
+                 background: white url(http://www.foo.com/image.gif) repeat-x fixed top right }
+      blockquote {
+                 margin-left: 2cm; 
+                 color: #00ff00 }
+      .part1 {
+                 font-size: xx-large; 
+                 color: #808000 }
+      h6 {
+                 font-size: xx-small ! important;
+                 color: red ! important }*/
